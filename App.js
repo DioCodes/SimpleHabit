@@ -1,43 +1,16 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { Checks } from "./components/Checks";
+import React from "react";
+import { PersistGate } from "redux-persist/integration/react";
+import { Provider } from "react-redux";
+
+import { store, persistor } from "./src/store/store";
+import { MainScreen } from "./src/screens/MainScreen";
 
 export default function App() {
   return (
-    <View style={styles.cont}>
-      <View style={styles.container}>
-        <View>
-          <Text style={styles.text}>Reading</Text>
-          <Checks />
-        </View>
-        <View>
-          <Text style={styles.text}>Training</Text>
-          <Checks />
-        </View>
-      </View>
-    </View>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <MainScreen />
+      </PersistGate>
+    </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  cont: {
-    flex: 1,
-    backgroundColor: "#202124"
-  },
-
-  container: {
-    flex: 1,
-    backgroundColor: "#202124",
-    marginTop: "10%",
-    marginHorizontal: "4.5%",
-    alignItems: "center"
-  },
-
-  text: {
-    fontSize: 30,
-    fontWeight: "900",
-    color: "#fff",
-    marginBottom: "2.5%",
-    marginTop: "5%"
-  }
-});
